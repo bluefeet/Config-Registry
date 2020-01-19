@@ -57,7 +57,18 @@
       }
    },
    "release_status" : "unstable",
-   "version" : "0.00",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/bluefeet/Config-Registry/issues"
+      },
+      "homepage" : "https://github.com/bluefeet/Config-Registry",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/bluefeet/Config-Registry.git",
+         "web" : "https://github.com/bluefeet/Config-Registry"
+      }
+   },
+   "version" : "0.01",
    "x_authority" : "cpan:BLUEFEET",
    "x_serialization_backend" : "JSON::PP version 4.04",
    "x_static_install" : 1
