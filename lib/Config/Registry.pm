@@ -1,5 +1,5 @@
 package Config::Registry;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 use strictures 2;
 
 use Carp qw( croak );
