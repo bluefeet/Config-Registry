@@ -18,7 +18,7 @@ use namespace::clean;
 extends 'Config::Registry';
 
 __PACKAGE__->schema({
-  border_color => Str,
+    border_color => Str,
 });
 
 1;
@@ -36,7 +36,7 @@ use namespace::clean;
 extends 'Org::Style';
 
 __PACKAGE__->document({
-  border_color => '#333',
+    border_color => '#333',
 });
 
 __PACKAGE__->publish();
@@ -60,8 +60,8 @@ This module provides a framework for a pattern we've seen emerge in
 ZipRecruiter code as we've been working to separate our monolithic
 application into smaller and more manageable code bases.
 
-The concept is pretty straightforward.  A registry consists of a
-schema class and one or more document classes.  The schema is used to
+The concept is pretty straightforward. A registry consists of a
+schema class and one or more document classes. The schema is used to
 validate the documents, and the documents are used to configure the
 features of an application.
 
@@ -69,7 +69,7 @@ features of an application.
 
 ```perl
 __PACKAGE__->schema({
-  border_color => Str,
+    border_color => Str,
 });
 ```
 
@@ -78,16 +78,16 @@ These pairs get turned into required [Moo](https://metacpan.org/pod/Moo) attribu
 ["publish"](#publish) is called.
 
 Top-level schema keys may have a hash ref, rather than a type, as
-their value.  This hash ref will be used directly to construct the
-[Moo](https://metacpan.org/pod/Moo) attribute.  The `required` option defaults on, and the `is`
-option default to `ro`.  You can of course override these in the
+their value. This hash ref will be used directly to construct the
+[Moo](https://metacpan.org/pod/Moo) attribute. The `required` option defaults on, and the `is`
+option default to `ro`. You can of course override these in the
 hash ref.
 
 For example, the above code could be written as:
 
 ```perl
 __PACKAGE__->schema({
-  border_color => { isa => Str },
+    border_color => { isa => Str },
 });
 ```
 
@@ -95,7 +95,7 @@ The attribute can be made optional by passing an options hash ref:
 
 ```perl
 __PACKAGE__->schema({
-  border_color => { isa => Str, required => 0 },
+    border_color => { isa => Str, required => 0 },
 });
 ```
 
@@ -104,12 +104,12 @@ Non-top level keys can be made optional using [Type::Standard](https://metacpan.
 
 ```perl
 __PACKAGE__->schema({
-  border_colors => Dict[
-    top    => Optional[ Str ],
-    right  => Optional[ Str ],
-    bottom => Optional[ Str ],
-    left   => Optional[ Str ],
-  ],
+    border_colors => Dict[
+        top    => Optional[ Str ],
+        right  => Optional[ Str ],
+        bottom => Optional[ Str ],
+        left   => Optional[ Str ],
+    ],
 });
 ```
 
@@ -119,7 +119,7 @@ See ["Create a Schema Role"](#create-a-schema-role) for a complete example.
 
 ```perl
 __PACKAGE__->document({
-  border_color => '#333',
+    border_color => '#333',
 });
 ```
 
@@ -148,7 +148,7 @@ Returns the singleton instance of the registry class.
 __PACKAGE__->schema( \%schema );
 ```
 
-Sets the schema hash ref.  If a schema hash ref has already been
+Sets the schema hash ref. If a schema hash ref has already been
 set then ["merge"](#merge) will be used to combine the passed in schema with
 the existing schema.
 
@@ -161,7 +161,7 @@ itself.
 __PACKAGE__->document( \%doc );
 ```
 
-Sets the document hash ref.  If a document hash ref has already been
+Sets the document hash ref. If a document hash ref has already been
 set then ["merge"](#merge) will be used to combine the passed in document with
 the existing document.
 
@@ -188,7 +188,7 @@ Config-Registry GitHub issue tracker:
 
 Thanks to [ZipRecruiter](https://www.ziprecruiter.com/) for
 encouraging their employees to contribute back to the open source
-ecosystem.  Without their dedication to quality software development
+ecosystem. Without their dedication to quality software development
 this distribution would not exist.
 
 # AUTHOR
@@ -208,8 +208,8 @@ the Free Software Foundation, either version 3 of the License, or
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see [http://www.gnu.org/licenses/](http://www.gnu.org/licenses/).
+along with this program. If not, see [http://www.gnu.org/licenses/](http://www.gnu.org/licenses/).
