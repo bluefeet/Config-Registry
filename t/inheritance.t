@@ -2,10 +2,6 @@
 use Test2::V0;
 use strictures 2;
 
-use Config::Registry;
-
-ok( 1 );
-
 package Foo1;
   use Moo;
   extends 'Config::Registry';

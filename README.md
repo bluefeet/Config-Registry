@@ -130,6 +130,16 @@ on the registry class.
 
 See ["Create a Document Class"](#create-a-document-class) for a complete example.
 
+# CLASS METHODS
+
+## fetch
+
+```perl
+my $registry = $class->fetch();
+```
+
+Returns the singleton instance of the registry class.
+
 # PACKAGE METHODS
 
 ## schema
@@ -166,27 +176,6 @@ __PACKAGE__->publish();
 
 Turns the ["schema"](#schema) hash ref into [Moo](https://metacpan.org/pod/Moo) attributes and enables the
 registry class to be instantiated.
-
-## merge
-
-```perl
-my $new_schema = $class->merge( $schema, $extra_schema );
-```
-
-This utility method does a `RIGHT_PRECEDENT` [Hash::Merge](https://metacpan.org/pod/Hash::Merge) and is
-made available for those jobs that require a bit more customization
-when building the schema and/or documents.
-
-## render
-
-```perl
-my $document = $class->render( $raw_document );
-```
-
-Like ["merge"](#merge), this method is made available as a spot for subclasses
-to customize behavior.  The default render method just returns what is
-passed to it.  As an example, this method could be customized to pass
-the schema and document data structures through [Data::Xslate](https://metacpan.org/pod/Data::Xslate).
 
 # SUPPORT
 

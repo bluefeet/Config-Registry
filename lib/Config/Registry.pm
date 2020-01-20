@@ -3,7 +3,6 @@ our $VERSION = '0.01';
 use strictures 2;
 
 use Carp qw( croak );
-use Hash::Merge qw();
 use MRO::Compat;
 
 use Moo;
@@ -14,8 +13,8 @@ around BUILDARGS => sub{
   my $class = shift;
 
   my $args = $class->$orig( @_ );
-  $args = $class->merge( $class->document(), $args );
-  $args = $class->render( $args );
+  $args = $class->merge_documents( $class->document(), $args );
+  $args = $class->render_document( $args );
 
   return $args;
 };
@@ -54,12 +53,40 @@ sub _get_class_data {
   return undef;
 }
 
-my $MERGER;
+sub merge_schemas {
+    my $class = shift;
+    return $class->merge( @_ );
+}
+
+sub merge_documents {
+    my $class = shift;
+    return $class->merge( @_ );
+}
 
 sub merge {
-  $MERGER ||= Hash::Merge->new( 'RIGHT_PRECEDENT' );
-  shift;
-  return $MERGER->merge( @_ );
+    my ($class, $l, $r) = @_;
+
+    return $r if ref($l) ne 'HASH';
+    return $r if ref($r) ne 'HASH';
+
+    $r = { %$r };
+
+    foreach my $key (keys %$l) {
+        next if !exists $r->{$key};
+        $r->{$key} = $class->merge( $l->{$key}, $r->{$key} );
+    }
+
+    return { %$l, %$r };
+}
+
+sub render_schema {
+    my $class = shift;
+    return $class->render( @_ );
+}
+
+sub render_document {
+    my $class = shift;
+    return $class->render( @_ );
 }
 
 sub render {
@@ -83,7 +110,7 @@ sub schema {
   croak "Cannot change the registry schema after publishing $class"
     if $class->_get_class_data('is_published');
 
-  $schema = $class->merge( $schema, $extra );
+  $schema = $class->merge_schemas( $schema, $extra );
   $class->_set_class_data( schema => $schema );
 
   return $schema;
@@ -98,7 +125,7 @@ sub document {
   croak "Cannot change the registry document after publishing $class"
     if $class->_get_class_data('is_published');
 
-  $document = $class->merge( $document, $extra );
+  $document = $class->merge_documents( $document, $extra );
   $class->_set_class_data( document => $document );
 
   return $document;
@@ -112,11 +139,11 @@ sub publish {
 
   my $schema = $class->_get_class_data('schema') || {};
 
-  $schema = $class->render( $schema );
+  $schema = $class->render_schema( $schema );
 
   foreach my $key (keys %$schema) {
     my $spec = $schema->{$key};
-    $spec = { isa=>$spec } if !ref $spec;
+    $spec = { isa=>$spec } if ref($spec) ne 'HASH';
 
     $spec = {
       is       => 'ro',
@@ -258,6 +285,14 @@ on the registry class.
 
 See L</Create a Document Class> for a complete example.
 
+=head1 CLASS METHODS
+
+=head2 fetch
+
+    my $registry = $class->fetch();
+
+Returns the singleton instance of the registry class.
+
 =head1 PACKAGE METHODS
 
 =head2 schema
@@ -288,23 +323,6 @@ itself.
 
 Turns the L</schema> hash ref into L<Moo> attributes and enables the
 registry class to be instantiated.
-
-=head2 merge
-
-  my $new_schema = $class->merge( $schema, $extra_schema );
-
-This utility method does a C<RIGHT_PRECEDENT> L<Hash::Merge> and is
-made available for those jobs that require a bit more customization
-when building the schema and/or documents.
-
-=head2 render
-
-  my $document = $class->render( $raw_document );
-
-Like L</merge>, this method is made available as a spot for subclasses
-to customize behavior.  The default render method just returns what is
-passed to it.  As an example, this method could be customized to pass
-the schema and document data structures through L<Data::Xslate>.
 
 =head1 SUPPORT
 

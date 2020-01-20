@@ -43,7 +43,6 @@
       "runtime" : {
          "requires" : {
             "Carp" : "0",
-            "Hash::Merge" : "0",
             "MRO::Compat" : "0",
             "Moo" : "0",
             "namespace::clean" : "0",
