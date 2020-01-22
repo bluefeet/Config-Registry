@@ -43,15 +43,15 @@
       "runtime" : {
          "requires" : {
             "Carp" : "0",
-            "MRO::Compat" : "0",
-            "Moo" : "0",
-            "namespace::clean" : "0",
-            "strictures" : "0"
+            "MRO::Compat" : "0.13",
+            "Moo" : "2.003006",
+            "namespace::clean" : "0.27",
+            "strictures" : "2.000006"
          }
       },
       "test" : {
          "requires" : {
-            "Test2::V0" : "0"
+            "Test2::V0" : "0.000127"
          }
       }
    },
