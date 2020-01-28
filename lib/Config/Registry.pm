@@ -54,39 +54,39 @@ sub _get_class_data {
 }
 
 sub merge_schemas {
-        my $class = shift;
-        return $class->merge( @_ );
+    my $class = shift;
+    return $class->merge( @_ );
 }
 
 sub merge_documents {
-        my $class = shift;
-        return $class->merge( @_ );
+    my $class = shift;
+    return $class->merge( @_ );
 }
 
 sub merge {
-        my ($class, $l, $r) = @_;
+    my ($class, $l, $r) = @_;
 
-        return $r if ref($l) ne 'HASH';
-        return $r if ref($r) ne 'HASH';
+    return $r if ref($l) ne 'HASH';
+    return $r if ref($r) ne 'HASH';
 
-        $r = { %$r };
+    $r = { %$r };
 
-        foreach my $key (keys %$l) {
-                next if !exists $r->{$key};
-                $r->{$key} = $class->merge( $l->{$key}, $r->{$key} );
-        }
+    foreach my $key (keys %$l) {
+        next if !exists $r->{$key};
+        $r->{$key} = $class->merge( $l->{$key}, $r->{$key} );
+    }
 
-        return { %$l, %$r };
+    return { %$l, %$r };
 }
 
 sub render_schema {
-        my $class = shift;
-        return $class->render( @_ );
+    my $class = shift;
+    return $class->render( @_ );
 }
 
 sub render_document {
-        my $class = shift;
-        return $class->render( @_ );
+    my $class = shift;
+    return $class->render( @_ );
 }
 
 sub render {
